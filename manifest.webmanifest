@@ -1,0 +1,14 @@
+{
+  "name": "Final Eleven — Futbol Kart Düellosu",
+  "short_name": "Final Eleven",
+  "description": "150 kurgusal futbolcuyla bilgisayara karşı mobil kart düellosu.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07120e",
+  "theme_color": "#07120e",
+  "lang": "tr",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
