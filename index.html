@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#07120e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="150 kurgusal futbolcuyla bilgisayara karşı mobil kart düellosu.">
+  <title>Final Eleven</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" id="brandBtn" aria-label="Ana menüye dön">
+        <span class="brand-mark">11</span>
+        <span>FINAL ELEVEN</span>
+      </button>
+      <button class="icon-btn" id="soundBtn" aria-label="Sesi kapat" aria-pressed="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5Zm4.5 4.5a4 4 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="screen active" id="homeScreen" aria-labelledby="homeTitle">
+        <div class="hero">
+          <div class="hero-ball" aria-hidden="true">
+            <span>11</span>
+          </div>
+          <p class="eyebrow">TEK OYUNCULU KART DÜELLOSU</p>
+          <h1 id="homeTitle">Takımını kur.<br><em>Özelliğini seç.</em></h1>
+          <p class="hero-copy">150 özgün futbolcu arasından formasyonuna uygun ilk 11'ini al ve yapay zekâyı yen.</p>
+        </div>
+
+        <div class="home-actions">
+          <button class="primary-btn" id="newGameBtn">
+            <span>YENİ MAÇ</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <button class="secondary-btn" id="collectionBtn">
+            <span>KART HAVUZU</span>
+            <b>150</b>
+          </button>
+        </div>
+
+        <div class="record-card">
+          <div><small>GALİBİYET</small><strong id="winsStat">0</strong></div>
+          <div><small>MAĞLUBİYET</small><strong id="lossesStat">0</strong></div>
+          <div><small>EN İYİ SERİ</small><strong id="streakStat">0</strong></div>
+        </div>
+      </section>
+
+      <section class="screen" id="formationScreen" aria-labelledby="formationTitle">
+        <div class="section-head">
+          <button class="back-btn" data-back="homeScreen" aria-label="Geri dön">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div>
+            <p class="step">1 / 2</p>
+            <h2 id="formationTitle">Formasyonunu seç</h2>
+          </div>
+        </div>
+
+        <div class="formation-list" id="formationList"></div>
+
+        <div class="sticky-action">
+          <button class="primary-btn" id="dealBtn" disabled>
+            <span>KADROYU DAĞIT</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="screen" id="squadScreen" aria-labelledby="squadTitle">
+        <div class="section-head">
+          <button class="back-btn" data-back="formationScreen" aria-label="Geri dön">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div>
+            <p class="step">2 / 2</p>
+            <h2 id="squadTitle">İlk 11'in hazır</h2>
+          </div>
+          <button class="shuffle-btn" id="redealBtn" aria-label="Kadroyu yeniden dağıt">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          </button>
+        </div>
+
+        <div class="squad-summary">
+          <div><small>FORMASYON</small><strong id="chosenFormation">—</strong></div>
+          <div><small>TAKIM GÜCÜ</small><strong id="teamOverall">—</strong></div>
+          <div><small>KART</small><strong>11</strong></div>
+        </div>
+
+        <div class="pitch" id="lineupPitch" aria-label="Takım dizilişi"></div>
+
+        <div class="sticky-action">
+          <button class="primary-btn" id="startMatchBtn">
+            <span>MAÇA BAŞLA</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="screen match-screen" id="matchScreen" aria-labelledby="roundLabel">
+        <div class="scorebar">
+          <div class="side-score player-score"><small>SEN</small><strong id="playerScore">0</strong></div>
+          <div class="round-info">
+            <small id="roundLabel">TUR 1 / 11</small>
+            <div class="round-dots" id="roundDots" aria-hidden="true"></div>
+          </div>
+          <div class="side-score cpu-score"><small>CPU</small><strong id="cpuScore">0</strong></div>
+        </div>
+
+        <div class="arena" id="arena">
+          <div class="card-slot opponent-slot">
+            <span class="slot-label">RAKİP</span>
+            <article class="player-card card-back" id="cpuCard" aria-label="Rakip kartı kapalı">
+              <div class="back-pattern"><span>11</span></div>
+            </article>
+          </div>
+
+          <div class="versus" aria-hidden="true">VS</div>
+
+          <div class="card-slot player-slot">
+            <span class="slot-label">SENİN KARTIN</span>
+            <article class="player-card" id="humanCard"></article>
+          </div>
+        </div>
+
+        <div class="instruction" id="instruction">Karşılaştırmak için bir özellik seç</div>
+        <button class="primary-btn next-round-btn" id="nextRoundBtn" hidden>
+          <span>SONRAKİ TUR</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </section>
+
+      <section class="screen" id="resultScreen" aria-labelledby="resultTitle">
+        <div class="result-wrap">
+          <div class="result-emblem" id="resultEmblem">W</div>
+          <p class="eyebrow" id="resultEyebrow">MAÇ TAMAMLANDI</p>
+          <h2 id="resultTitle">Galibiyet!</h2>
+          <p id="resultCopy">Doğru özellik seçimleriyle maçı kazandın.</p>
+
+          <div class="final-score">
+            <div><small>SEN</small><strong id="finalPlayerScore">0</strong></div>
+            <span>—</span>
+            <div><small>CPU</small><strong id="finalCpuScore">0</strong></div>
+          </div>
+
+          <div class="result-actions">
+            <button class="primary-btn" id="rematchBtn"><span>TEKRAR OYNA</span></button>
+            <button class="text-btn" id="resultHomeBtn">ANA MENÜ</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="collectionScreen" aria-labelledby="collectionTitle">
+        <div class="section-head">
+          <button class="back-btn" data-back="homeScreen" aria-label="Geri dön">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div>
+            <p class="step">150 KURGUSAL FUTBOLCU</p>
+            <h2 id="collectionTitle">Kart havuzu</h2>
+          </div>
+        </div>
+
+        <div class="filters" id="collectionFilters">
+          <button class="active" data-filter="ALL">TÜMÜ</button>
+          <button data-filter="GK">KL</button>
+          <button data-filter="DEF">DEF</button>
+          <button data-filter="MID">ORT</button>
+          <button data-filter="FWD">FOR</button>
+        </div>
+        <div class="collection-count" id="collectionCount">150 kart</div>
+        <div class="card-grid" id="cardGrid"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="players.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
